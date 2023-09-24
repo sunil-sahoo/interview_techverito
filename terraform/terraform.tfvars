@@ -1,0 +1,5 @@
+PUBLIC_KEY_PATH = "/home/sunil/interview/skeys/interview.pub"
+PRIVATE_KEY_PATH = "/home/sunil/interview/skeys/interview"
+role_name= "ec2-profile"
+instance_profile_name= "ec2-role"
+SCRIPT_PATH= "/home/sunil/interview/devops-fullstack-app/terraform/script.sh"

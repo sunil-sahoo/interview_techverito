@@ -1,0 +1,33 @@
+name: EC2 Deploy
+
+on:
+    workflow_dispatch:
+      inputs:
+        logLevel:
+          description: 'Log level'
+          required: true
+          default: 'warning'
+          type: choice
+          options:
+          - info
+          - warning
+          - debug
+        tags:
+          description: 'Test scenario tags'
+          required: false
+          type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:            
+      - name: Deploy package to EC2 server
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/ubuntu/devops-fullstack-app
+            docker-compose pull && docker-compose up -d
+          

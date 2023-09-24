@@ -1,0 +1,12 @@
+.idea
+frontend/node_modules
+.env
+backend/.env
+*tfstate*
+terraform/.terraform*
+terraform/.terraform/*
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+.git
+
+
