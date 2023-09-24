@@ -2,7 +2,7 @@ version: "3.1"
 services:
   backend:
     # Configuration for building the docker image for the service
-    image: 427510603539.dkr.ecr.ap-south-1.amazonaws.com/backend-api:main
+    image: 427510603539.dkr.ecr.ap-south-1.amazonaws.com/backend-api:master
     ports:
       - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
     restart: unless-stopped
@@ -38,7 +38,7 @@ services:
       - backend
   # frontend service
   frontend:
-    image: "427510603539.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:main"
+    image: "427510603539.dkr.ecr.ap-south-1.amazonaws.com/frontend-app:master"
     ports:
       - "3000:3000"
     restart: always
