@@ -7,19 +7,11 @@ on:
 jobs:
   frontend-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}     
-      - name: Get DigitalOcean IPaddress
-        id: ips
-        run: doctl compute droplet list | awk '{print $3}' | grep -v Public
-                        
+    steps:                 
       - name: Deploy package to EC2 server
         uses: appleboy/ssh-action@v0.1.4
         with:
-          host: "${{ steps.ips.outputs }}"
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
