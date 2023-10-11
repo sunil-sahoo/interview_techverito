@@ -1,0 +1,28 @@
+name: Digital Ocean Deploy
+
+on:
+    push:
+        branches:
+            - "master"
+jobs:
+  frontend-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}     
+      - name: Get DigitalOcean IPaddress
+        id: ips
+        run: doctl compute droplet list | awk '{print $3}' | grep -v Public
+                        
+      - name: Deploy package to EC2 server
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: "${{ steps.ips.outputs }}"
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /root/interview_sma
+            sudo docker-compose pull && sudo docker-compose up -d
+          
